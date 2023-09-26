@@ -64,4 +64,12 @@ public class ActorServiceImpl implements ActorService {
         filmActorRepository.deleteByActorId(id);
         actorRepository.deleteById(id);
     }
+
+    @Override
+    public List<ActorDTO> searchActors(String query) {
+        List<Actor> actors = actorRepository.findByFirstNameContainingOrLastNameContaining(query, query);
+        return actors.stream().map(actor -> modelMapper.map(actor, ActorDTO.class)).collect(Collectors.toList());
+    }
+
+
 }
