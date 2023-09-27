@@ -9,7 +9,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "language", catalog = "sakila")
+@Table(name = "language")
 @Data
 public class Language implements Serializable {
 

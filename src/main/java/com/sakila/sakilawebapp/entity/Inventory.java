@@ -10,7 +10,7 @@ import java.sql.Date;
 
 @Data
 @Entity
-@Table(name = "inventory", catalog = "sakila")
+@Table(name = "inventory")
 public class Inventory implements Serializable {
 
     @Serial

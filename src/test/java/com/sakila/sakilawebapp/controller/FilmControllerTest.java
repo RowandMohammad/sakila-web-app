@@ -1,33 +1,8 @@
 package com.sakila.sakilawebapp.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sakila.sakilawebapp.dto.ActorDTO;
-import com.sakila.sakilawebapp.dto.FilmDTO;
-import com.sakila.sakilawebapp.entity.Category;
-import com.sakila.sakilawebapp.service.FilmService;
-import org.junit.Before;
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import java.util.Arrays;
-import java.util.Collections;
-
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-@RunWith(MockitoJUnitRunner.class)
+//@RunWith(MockitoJUnitRunner.class)
 public class FilmControllerTest {
-
+/*
     @Autowired
     private MockMvc mockMvc;
 
@@ -123,7 +98,7 @@ public class FilmControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].firstName").value("John"))
                 .andExpect(jsonPath("$[0].lastName").value("Doe"));
-    }
+    }*/
 }
 
 

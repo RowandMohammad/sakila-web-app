@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table(name = "actor", catalog = "sakila")
+@Table(name = "actor")
 public class Actor implements java.io.Serializable {
 
     @Serial
