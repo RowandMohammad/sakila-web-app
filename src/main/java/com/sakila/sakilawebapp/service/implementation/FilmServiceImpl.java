@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class FilmServiceImpl implements FilmService {
@@ -42,7 +41,7 @@ public class FilmServiceImpl implements FilmService {
         return filmCategoryRepository.findAllByCategoryId(categoryId)
                 .stream()
                 .map(filmCategory -> modelMapper.map(filmCategory.getFilm(), FilmDTO.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
 
@@ -57,7 +56,7 @@ public class FilmServiceImpl implements FilmService {
         return filmRepository.findAll()
                 .stream()
                 .map(film -> modelMapper.map(film, FilmDTO.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -108,7 +107,7 @@ public class FilmServiceImpl implements FilmService {
         return film.getFilmActors()
                 .stream()
                 .map(filmActor -> modelMapper.map(filmActor.getActor(), ActorDTO.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -116,7 +115,7 @@ public class FilmServiceImpl implements FilmService {
         return filmRepository.findByTitleContainingIgnoreCase(title)
                 .stream()
                 .map(film -> modelMapper.map(film, FilmDTO.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
 
