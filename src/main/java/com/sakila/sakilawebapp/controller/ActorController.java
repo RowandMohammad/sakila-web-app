@@ -50,7 +50,7 @@ public class ActorController {
 
     @GetMapping("/search")
     public ResponseEntity<List<ActorDTO>> searchActors(@RequestParam String query) {
-        if (StringUtils.isEmpty(query)) {
+        if (!StringUtils.hasLength(query)) {
             return getAllActors();
         }
         List<ActorDTO> actors = actorService.searchActors(query);
