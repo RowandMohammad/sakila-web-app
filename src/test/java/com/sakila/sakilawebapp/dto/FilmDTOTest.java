@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 import java.sql.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FilmDTOTest {
+class FilmDTOTest {
 
     @Test
-    public void testFilmDTO() {
+    void testFilmDTO() {
         FilmDTO film = new FilmDTO();
         film.setFilmId((short) 5);
         film.setTitle("Test Movie");
