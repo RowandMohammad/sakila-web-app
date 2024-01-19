@@ -5,6 +5,7 @@ import com.sakila.sakilawebapp.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,5 +46,14 @@ public class ActorController {
     public ResponseEntity<Void> deleteActor(@PathVariable Short id) {
         actorService.deleteActor(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ActorDTO>> searchActors(@RequestParam String query) {
+        if (StringUtils.isEmpty(query)) {
+            return getAllActors();
+        }
+        List<ActorDTO> actors = actorService.searchActors(query);
+        return new ResponseEntity<>(actors, HttpStatus.OK);
     }
 }

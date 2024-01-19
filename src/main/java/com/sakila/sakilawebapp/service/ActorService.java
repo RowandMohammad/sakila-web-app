@@ -15,4 +15,7 @@ public interface ActorService {
     ActorDTO updateActor(Short id, ActorDTO actorDTO);
 
     void deleteActor(Short id);
+
+    List<ActorDTO> searchActors(String query);
+
 }

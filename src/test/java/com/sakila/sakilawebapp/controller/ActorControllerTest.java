@@ -1,5 +1,6 @@
 package com.sakila.sakilawebapp.controller;
 
+import com.sakila.sakilawebapp.SakilaWebApplication;
 import com.sakila.sakilawebapp.dto.ActorDTO;
 import com.sakila.sakilawebapp.service.ActorService;
 import org.junit.Before;
@@ -7,8 +8,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -21,9 +25,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SakilaWebApplication.class)
+@AutoConfigureMockMvc
 public class ActorControllerTest {
 
+
+    @Autowired
     private MockMvc mockMvc;
 
     @Mock
@@ -51,6 +59,7 @@ public class ActorControllerTest {
                 .andExpect(jsonPath("$[0].actorId").value(1))
                 .andExpect(jsonPath("$[0].firstName").value("John"))
                 .andExpect(jsonPath("$[0].lastName").value("Doe"));
+
     }
 
     @Test

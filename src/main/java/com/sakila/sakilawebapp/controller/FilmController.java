@@ -67,4 +67,11 @@ public class FilmController {
         return new ResponseEntity<>(actors, HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<FilmDTO>> searchFilms(@RequestParam String title) {
+        List<FilmDTO> films = filmService.searchFilmsByTitle(title);
+        return new ResponseEntity<>(films, HttpStatus.OK);
+    }
+
+
 }

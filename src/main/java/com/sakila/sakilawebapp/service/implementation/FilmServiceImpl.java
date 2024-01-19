@@ -111,6 +111,15 @@ public class FilmServiceImpl implements FilmService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<FilmDTO> searchFilmsByTitle(String title) {
+        return filmRepository.findByTitleContainingIgnoreCase(title)
+                .stream()
+                .map(film -> modelMapper.map(film, FilmDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
 
 
 

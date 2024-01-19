@@ -15,6 +15,8 @@ public interface FilmService {
     List<Category> getAllCategories();
     List<FilmDTO> getFilmsByCategory(Byte categoryId);
     List<ActorDTO> getActorsByFilmId(Short filmId);
+    List<FilmDTO> searchFilmsByTitle(String title);
+
 
 
 
