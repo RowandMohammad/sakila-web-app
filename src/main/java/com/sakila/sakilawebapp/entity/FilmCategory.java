@@ -9,7 +9,7 @@ import java.sql.Date;
 
 @Data
 @Entity
-@Table(name = "film_category", catalog = "sakila")
+@Table(name = "film_category")
 @IdClass(FilmCategoryId.class)
 public class FilmCategory implements Serializable {
 
