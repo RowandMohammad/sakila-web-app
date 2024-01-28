@@ -1,104 +1,96 @@
 package com.sakila.sakilawebapp.controller;
 
-//@RunWith(MockitoJUnitRunner.class)
-public class FilmControllerTest {
-/*
-    @Autowired
-    private MockMvc mockMvc;
+import com.sakila.sakilawebapp.dto.FilmDTO;
+import com.sakila.sakilawebapp.service.FilmService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 
-    @Mock
-    private FilmService filmService;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+public class FilmControllerTest {
 
     @InjectMocks
     private FilmController filmController;
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    @Mock
+    private FilmService filmService;
 
-
-    @Before
-    public void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(filmController).build();
+    @BeforeEach
+    public void init() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void getAllFilms_ShouldReturnFilms() throws Exception {
+    public void testGetAllFilms() {
         FilmDTO film1 = new FilmDTO();
-        film1.setFilmId((short)1);
-        film1.setTitle("Film A");
-        film1.setDescription("Film A Description");
+        film1.setTitle("Film1");
+        FilmDTO film2 = new FilmDTO();
+        film2.setTitle("Film2");
 
-        when(filmService.getAllFilms()).thenReturn(Arrays.asList(film1));
+        when(filmService.getAllFilms()).thenReturn(Arrays.asList(film1, film2));
 
-        mockMvc.perform(get("/films"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].filmId").value(1))
-                .andExpect(jsonPath("$[0].title").value("Film A"))
-                .andExpect(jsonPath("$[0].description").value("Film A Description"));
+        ResponseEntity<List<FilmDTO>> response = filmController.getAllFilms();
+        List<FilmDTO> films = response.getBody();
+
+        assertEquals(2, films.size());
+        assertEquals("Film1", films.get(0).getTitle());
+        assertEquals("Film2", films.get(1).getTitle());
     }
 
     @Test
-    public void getFilmById_ShouldReturnFilm() throws Exception {
+    public void testGetFilmById() {
         FilmDTO film = new FilmDTO();
-        film.setFilmId((short)2);
-        film.setTitle("Film B");
-        film.setDescription("Film B Description");
+        film.setTitle("Film1");
 
-        when(filmService.getFilmById((short)2)).thenReturn(film);
+        when(filmService.getFilmById((short) 1)).thenReturn(film);
 
-        mockMvc.perform(get("/films/2"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.filmId").value(2))
-                .andExpect(jsonPath("$.title").value("Film B"))
-                .andExpect(jsonPath("$.description").value("Film B Description"));
-    }
+        ResponseEntity<FilmDTO> response = filmController.getFilmById((short) 1);
+        FilmDTO returnedFilm = response.getBody();
 
-
-
-    @Test
-    public void deleteFilm_ShouldReturnNoContent() throws Exception {
-        Short filmId = 4;
-        doNothing().when(filmService).deleteFilm(filmId);
-
-        mockMvc.perform(delete("/films/" + filmId))
-                .andExpect(status().isNoContent());
+        assertEquals("Film1", returnedFilm.getTitle());
     }
 
     @Test
-    public void getAllCategories_ShouldReturnCategories() throws Exception {
-        Category category = new Category();
-        category.setName("Drama");
-        when(filmService.getAllCategories()).thenReturn(Collections.singletonList(category));
+    public void testCreateFilm() {
+        FilmDTO film = new FilmDTO();
+        film.setTitle("Film1");
 
-        mockMvc.perform(get("/films/categories"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].name").value("Drama"));
+        when(filmService.createFilm(film)).thenReturn(film);
+
+        ResponseEntity<FilmDTO> response = filmController.createFilm(film);
+        FilmDTO returnedFilm = response.getBody();
+
+        assertEquals("Film1", returnedFilm.getTitle());
     }
 
     @Test
-    public void getFilmsByCategory_ShouldReturnFilms() throws Exception {
-        Byte categoryId = 5;
-        FilmDTO filmInCategory = new FilmDTO();
-        filmInCategory.setTitle("Drama Film");
-        when(filmService.getFilmsByCategory(categoryId)).thenReturn(Collections.singletonList(filmInCategory));
+    public void testUpdateFilm() {
+        FilmDTO film = new FilmDTO();
+        film.setTitle("UpdatedFilm");
 
-        mockMvc.perform(get("/films/category/" + categoryId))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].title").value("Drama Film"));
+        when(filmService.updateFilm((short) 1, film)).thenReturn(film);
+
+        ResponseEntity<FilmDTO> response = filmController.updateFilm((short) 1, film);
+        FilmDTO returnedFilm = response.getBody();
+
+        assertEquals("UpdatedFilm", returnedFilm.getTitle());
     }
 
     @Test
-    public void getActorsByFilmId_ShouldReturnActors() throws Exception {
-        Short filmId = 6;
-        ActorDTO actor = new ActorDTO();
-        actor.setFirstName("John");
-        actor.setLastName("Doe");
-        when(filmService.getActorsByFilmId(filmId)).thenReturn(Collections.singletonList(actor));
+    public void testDeleteFilm() {
+        filmController.deleteFilm((short) 1);
+        verify(filmService, times(1)).deleteFilm((short) 1);
+    }
 
-        mockMvc.perform(get("/films/" + filmId + "/actors"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].firstName").value("John"))
-                .andExpect(jsonPath("$[0].lastName").value("Doe"));
-    }*/
 }
-
-
