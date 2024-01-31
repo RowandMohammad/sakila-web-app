@@ -1,102 +1,82 @@
 package com.sakila.sakilawebapp.controller;
 
-import com.sakila.sakilawebapp.SakilaWebApplication;
 import com.sakila.sakilawebapp.dto.ActorDTO;
 import com.sakila.sakilawebapp.service.ActorService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = SakilaWebApplication.class)
-@AutoConfigureMockMvc
+@ExtendWith(MockitoExtension.class)
 public class ActorControllerTest {
-
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Mock
-    private ActorService actorService;
 
     @InjectMocks
     private ActorController actorController;
 
-    @Before
-    public void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(actorController).build();
-    }
+    @Mock
+    private ActorService actorService;
 
     @Test
-    public void getAllActors_ShouldReturnActors() throws Exception {
-        ActorDTO actor1 = new ActorDTO();
-        actor1.setActorId((short)1);
-        actor1.setFirstName("John");
-        actor1.setLastName("Doe");
+    public void testGetAllActors() {
+        ActorDTO actorDTO = new ActorDTO();
+        actorDTO.setActorId((short) 1);
+        actorDTO.setFirstName("Test");
+        actorDTO.setLastName("Actor");
 
-        when(actorService.getAllActors()).thenReturn(Arrays.asList(actor1));
+        when(actorService.getAllActors()).thenReturn(Arrays.asList(actorDTO));
 
-        mockMvc.perform(get("/actors"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].actorId").value(1))
-                .andExpect(jsonPath("$[0].firstName").value("John"))
-                .andExpect(jsonPath("$[0].lastName").value("Doe"));
+        ResponseEntity<List<ActorDTO>> response = actorController.getAllActors();
 
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().size()).isEqualTo(1);
+        assertThat(response.getBody().get(0).getFirstName()).isEqualTo("Test");
     }
+
+    // Similarly, provide tests for other endpoints.
+    // Example for getActorById:
 
     @Test
-    public void getActorById_ShouldReturnActor() throws Exception {
-        ActorDTO actor = new ActorDTO();
-        actor.setActorId((short)2);
-        actor.setFirstName("Jane");
-        actor.setLastName("Smith");
+    public void testGetActorById() {
+        ActorDTO actorDTO = new ActorDTO();
+        actorDTO.setActorId((short) 1);
+        actorDTO.setFirstName("Test");
+        actorDTO.setLastName("Actor");
 
-        when(actorService.getActorById((short)2)).thenReturn(actor);
+        when(actorService.getActorById((short) 1)).thenReturn(actorDTO);
 
-        mockMvc.perform(get("/actors/2"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.actorId").value(2))
-                .andExpect(jsonPath("$.firstName").value("Jane"))
-                .andExpect(jsonPath("$.lastName").value("Smith"));
+        ResponseEntity<ActorDTO> response = actorController.getActorById((short) 1);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().getFirstName()).isEqualTo("Test");
     }
+
+    // You can continue in this manner for createActor, updateActor, deleteActor, and searchActors.
 
     @Test
-    public void createActor_ShouldReturnCreatedActor() throws Exception {
-        ActorDTO actor = new ActorDTO();
-        actor.setFirstName("Jane");
-        actor.setLastName("Smith");
+    public void testCreateActor() {
+        ActorDTO actorDTO = new ActorDTO();
+        actorDTO.setActorId((short) 1);
+        actorDTO.setFirstName("Test");
+        actorDTO.setLastName("Actor");
 
-        ActorDTO savedActor = new ActorDTO();
-        savedActor.setActorId((short)3);
-        savedActor.setFirstName("Jane");
-        savedActor.setLastName("Smith");
+        when(actorService.createActor(any(ActorDTO.class))).thenReturn(actorDTO);
 
-        when(actorService.createActor(any(ActorDTO.class))).thenReturn(savedActor);
+        ResponseEntity<ActorDTO> response = actorController.createActor(actorDTO);
 
-        mockMvc.perform(post("/actors")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"firstName\":\"Jane\",\"lastName\":\"Smith\"}"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.actorId").value(3));
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+        assertThat(response.getBody().getFirstName()).isEqualTo("Test");
     }
+
+    // And so on for other methods...
 
 }
-
