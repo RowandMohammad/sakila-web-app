@@ -77,6 +77,68 @@ public class ActorControllerTest {
         assertThat(response.getBody().getFirstName()).isEqualTo("Test");
     }
 
-    // And so on for other methods...
+    @Test
+    public void testUpdateActor() {
+        ActorDTO actorDTO = new ActorDTO();
+        actorDTO.setActorId((short) 1);
+        actorDTO.setFirstName("Updated");
+        actorDTO.setLastName("Actor");
+
+        when(actorService.updateActor((short) 1, actorDTO)).thenReturn(actorDTO);
+
+        ResponseEntity<ActorDTO> response = actorController.updateActor((short) 1, actorDTO);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().getFirstName()).isEqualTo("Updated");
+    }
+
+    @Test
+    public void testDeleteActor() {
+        ResponseEntity<Void> response = actorController.deleteActor((short) 1);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+        // You might want to add a verify() call here to ensure the actorService.deleteActor() method was called with the right ID.
+    }
+
+    @Test
+    public void testSearchActorsWithQuery() {
+        ActorDTO actorDTO = new ActorDTO();
+        actorDTO.setActorId((short) 1);
+        actorDTO.setFirstName("Penelope");
+        actorDTO.setLastName("Actor");
+
+        when(actorService.searchActors("Penelope")).thenReturn(Arrays.asList(actorDTO));
+
+        ResponseEntity<List<ActorDTO>> response = actorController.searchActors("Penelope");
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().size()).isEqualTo(1);
+        assertThat(response.getBody().get(0).getFirstName()).isEqualTo("Penelope");
+    }
+
+
+    @Test
+    public void testSearchActorsWithEmptyQuery() {
+        ActorDTO actorDTO1 = new ActorDTO();
+        actorDTO1.setActorId((short) 1);
+        actorDTO1.setFirstName("First");
+        actorDTO1.setLastName("Actor");
+
+        ActorDTO actorDTO2 = new ActorDTO();
+        actorDTO2.setActorId((short) 2);
+        actorDTO2.setFirstName("Second");
+        actorDTO2.setLastName("Actor");
+
+        when(actorService.getAllActors()).thenReturn(Arrays.asList(actorDTO1, actorDTO2));
+
+        ResponseEntity<List<ActorDTO>> response = actorController.searchActors("");
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody().size()).isEqualTo(2);
+    }
+
+
+
+
 
 }
