@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ActorServiceImpl implements ActorService {
@@ -34,7 +33,7 @@ public class ActorServiceImpl implements ActorService {
     public List<ActorDTO> getAllActors() {
         return actorRepository.findAll().stream()
                 .map(actor -> modelMapper.map(actor, ActorDTO.class))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -68,7 +67,7 @@ public class ActorServiceImpl implements ActorService {
     @Override
     public List<ActorDTO> searchActors(String query) {
         List<Actor> actors = actorRepository.findByFirstNameContainingOrLastNameContaining(query, query);
-        return actors.stream().map(actor -> modelMapper.map(actor, ActorDTO.class)).collect(Collectors.toList());
+        return actors.stream().map(actor -> modelMapper.map(actor, ActorDTO.class)).toList();
     }
 
 

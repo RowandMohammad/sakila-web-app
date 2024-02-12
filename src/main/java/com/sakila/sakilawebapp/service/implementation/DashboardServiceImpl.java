@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DashboardServiceImpl implements DashboardService {
@@ -46,7 +45,7 @@ public class DashboardServiceImpl implements DashboardService {
             dto.setFilmId(((Number) record[0]).shortValue());
             dto.setTitle((String) record[1]);
             return dto;
-        }).collect(Collectors.toList());
+        }).toList();
     }
 
 
