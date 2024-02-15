@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class DashboardControllerTest {
+class DashboardControllerTest {
 
     @InjectMocks
     private DashboardController dashboardController;
@@ -27,7 +27,7 @@ public class DashboardControllerTest {
     private DashboardService dashboardService;
 
     @Test
-    public void testGetDashboardStats() {
+    void testGetDashboardStats() {
         DashboardStats stats = new DashboardStats();
         stats.setTotalActors(100);
         stats.setTotalFilms(200);
@@ -43,7 +43,7 @@ public class DashboardControllerTest {
     }
 
     @Test
-    public void testGetMostPopularFilms() {
+    void testGetMostPopularFilms() {
         FilmDTO filmDTO = new FilmDTO();
         filmDTO.setFilmId((short) 1);
         filmDTO.setTitle("Popular Film");

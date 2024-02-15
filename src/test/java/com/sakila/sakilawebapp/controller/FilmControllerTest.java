@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class FilmControllerTest {
+class FilmControllerTest {
 
     @InjectMocks
     private FilmController filmController;
@@ -29,12 +29,12 @@ public class FilmControllerTest {
     private FilmService filmService;
 
     @BeforeEach
-    public void init() {
+    void init() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testGetAllFilms() {
+    void testGetAllFilms() {
         FilmDTO film1 = new FilmDTO();
         film1.setTitle("Film1");
         FilmDTO film2 = new FilmDTO();
@@ -51,7 +51,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void testGetFilmById() {
+    void testGetFilmById() {
         FilmDTO film = new FilmDTO();
         film.setTitle("Film1");
 
@@ -64,7 +64,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void testCreateFilm() {
+    void testCreateFilm() {
         FilmDTO film = new FilmDTO();
         film.setTitle("Film1");
 
@@ -77,7 +77,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void testUpdateFilm() {
+    void testUpdateFilm() {
         FilmDTO film = new FilmDTO();
         film.setTitle("UpdatedFilm");
 
@@ -90,13 +90,13 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void testDeleteFilm() {
+    void testDeleteFilm() {
         filmController.deleteFilm((short) 1);
         verify(filmService, times(1)).deleteFilm((short) 1);
     }
 
     @Test
-    public void testGetAllCategories() {
+    void testGetAllCategories() {
         Category category1 = new Category();
         category1.setName("Category1");
         Category category2 = new Category();
@@ -113,7 +113,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void testGetFilmsByCategory() {
+    void testGetFilmsByCategory() {
         FilmDTO film1 = new FilmDTO();
         film1.setTitle("Film1");
         FilmDTO film2 = new FilmDTO();
@@ -130,7 +130,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void testGetActorsByFilmId() {
+    void testGetActorsByFilmId() {
         ActorDTO actor1 = new ActorDTO();
         actor1.setFirstName("Actor1");
         ActorDTO actor2 = new ActorDTO();
@@ -147,7 +147,7 @@ public class FilmControllerTest {
     }
 
     @Test
-    public void testSearchFilms() {
+    void testSearchFilms() {
         FilmDTO film1 = new FilmDTO();
         film1.setTitle("Film1");
         FilmDTO film2 = new FilmDTO();

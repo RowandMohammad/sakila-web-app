@@ -3,10 +3,10 @@ package com.sakila.sakilawebapp.dto;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DashboardStatsTest {
+class DashboardStatsTest {
 
     @Test
-    public void testDashboardStats() {
+    void testDashboardStats() {
         DashboardStats stats = new DashboardStats();
         stats.setTotalActors(10);
         stats.setTotalFilms(20);

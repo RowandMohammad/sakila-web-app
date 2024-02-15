@@ -5,10 +5,10 @@ import java.sql.Date;
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ActorDTOTest {
+class ActorDTOTest {
 
     @Test
-    public void testActorDTO() {
+    void testActorDTO() {
         ActorDTO actor = new ActorDTO();
         actor.setActorId((short) 1);
         actor.setFirstName("John");

@@ -18,7 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ActorControllerTest {
+class ActorControllerTest {
 
     @InjectMocks
     private ActorController actorController;
@@ -27,7 +27,7 @@ public class ActorControllerTest {
     private ActorService actorService;
 
     @Test
-    public void testGetAllActors() {
+    void testGetAllActors() {
         ActorDTO actorDTO = new ActorDTO();
         actorDTO.setActorId((short) 1);
         actorDTO.setFirstName("Test");
@@ -42,11 +42,10 @@ public class ActorControllerTest {
         assertThat(response.getBody().get(0).getFirstName()).isEqualTo("Test");
     }
 
-    // Similarly, provide tests for other endpoints.
-    // Example for getActorById:
+
 
     @Test
-    public void testGetActorById() {
+    void testGetActorById() {
         ActorDTO actorDTO = new ActorDTO();
         actorDTO.setActorId((short) 1);
         actorDTO.setFirstName("Test");
@@ -60,10 +59,9 @@ public class ActorControllerTest {
         assertThat(response.getBody().getFirstName()).isEqualTo("Test");
     }
 
-    // You can continue in this manner for createActor, updateActor, deleteActor, and searchActors.
 
     @Test
-    public void testCreateActor() {
+    void testCreateActor() {
         ActorDTO actorDTO = new ActorDTO();
         actorDTO.setActorId((short) 1);
         actorDTO.setFirstName("Test");
@@ -78,7 +76,7 @@ public class ActorControllerTest {
     }
 
     @Test
-    public void testUpdateActor() {
+    void testUpdateActor() {
         ActorDTO actorDTO = new ActorDTO();
         actorDTO.setActorId((short) 1);
         actorDTO.setFirstName("Updated");
@@ -93,15 +91,14 @@ public class ActorControllerTest {
     }
 
     @Test
-    public void testDeleteActor() {
+    void testDeleteActor() {
         ResponseEntity<Void> response = actorController.deleteActor((short) 1);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
-        // You might want to add a verify() call here to ensure the actorService.deleteActor() method was called with the right ID.
     }
 
     @Test
-    public void testSearchActorsWithQuery() {
+    void testSearchActorsWithQuery() {
         ActorDTO actorDTO = new ActorDTO();
         actorDTO.setActorId((short) 1);
         actorDTO.setFirstName("Penelope");
@@ -118,7 +115,7 @@ public class ActorControllerTest {
 
 
     @Test
-    public void testSearchActorsWithEmptyQuery() {
+    void testSearchActorsWithEmptyQuery() {
         ActorDTO actorDTO1 = new ActorDTO();
         actorDTO1.setActorId((short) 1);
         actorDTO1.setFirstName("First");
