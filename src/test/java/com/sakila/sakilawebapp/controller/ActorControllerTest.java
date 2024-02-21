@@ -38,7 +38,7 @@ class ActorControllerTest {
         ResponseEntity<List<ActorDTO>> response = actorController.getAllActors();
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody().size()).isEqualTo(1);
+        assertThat(response.getBody()).hasSize(1);
         assertThat(response.getBody().get(0).getFirstName()).isEqualTo("Test");
     }
 
@@ -109,7 +109,7 @@ class ActorControllerTest {
         ResponseEntity<List<ActorDTO>> response = actorController.searchActors("Penelope");
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody().size()).isEqualTo(1);
+        assertThat(response.getBody()).hasSize(1);
         assertThat(response.getBody().get(0).getFirstName()).isEqualTo("Penelope");
     }
 
@@ -131,7 +131,7 @@ class ActorControllerTest {
         ResponseEntity<List<ActorDTO>> response = actorController.searchActors("");
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody().size()).isEqualTo(2);
+        assertThat(response.getBody()).hasSize(2);
     }
 
 

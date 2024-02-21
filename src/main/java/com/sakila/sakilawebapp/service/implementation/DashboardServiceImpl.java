@@ -40,10 +40,10 @@ public class DashboardServiceImpl implements DashboardService {
     @Override
     public List<FilmDTO> getMostPopularFilms() {
         List<Object[]> results = filmRepository.findMostPopularFilms();
-        return results.stream().map(record -> {
+        return results.stream().map(filmRecord -> {
             FilmDTO dto = new FilmDTO();
-            dto.setFilmId(((Number) record[0]).shortValue());
-            dto.setTitle((String) record[1]);
+            dto.setFilmId(((Number) filmRecord[0]).shortValue());
+            dto.setTitle((String) filmRecord[1]);
             return dto;
         }).toList();
     }

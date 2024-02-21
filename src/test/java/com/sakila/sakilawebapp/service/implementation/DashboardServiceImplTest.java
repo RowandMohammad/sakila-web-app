@@ -51,12 +51,12 @@ class DashboardServiceImplTest {
 
     @Test
     void testGetMostPopularFilms() {
-        Object[] mockRecord = new Object[] {(short) 1, "Popular Film"};
-        when(filmRepository.findMostPopularFilms()).thenReturn(Collections.singletonList(mockRecord));
+        Object[] mockfilmRecord = new Object[] {(short) 1, "Popular Film"};
+        when(filmRepository.findMostPopularFilms()).thenReturn(Collections.singletonList(mockfilmRecord));
 
         List<FilmDTO> films = dashboardService.getMostPopularFilms();
 
-        assertThat(films.size()).isEqualTo(1);
+        assertThat(films).hasSize(1);
         assertThat(films.get(0).getTitle()).isEqualTo("Popular Film");
     }
 }
