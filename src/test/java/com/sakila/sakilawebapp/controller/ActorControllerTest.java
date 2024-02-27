@@ -33,7 +33,7 @@ class ActorControllerTest {
         actorDTO.setFirstName("Test");
         actorDTO.setLastName("Actor");
 
-        when(actorService.getAllActors()).thenReturn(Arrays.asList(actorDTO));
+        when(actorService.getAllActors()).thenReturn(List.of(actorDTO));
 
         ResponseEntity<List<ActorDTO>> response = actorController.getAllActors();
 
